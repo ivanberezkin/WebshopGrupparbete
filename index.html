@@ -22,6 +22,7 @@
     <script src="main-header.js" defer></script>
     <script src="OrderModal.js" defer></script>
     <script src="main-footer.js" defer></script>
+    <script src="checkoutOrderModal.js" defer></script>
     <script src="main.js" defer></script>
   </head>
   <body>
@@ -34,31 +35,11 @@
 
       <!-- Footer-->
       <main-footer></main-footer>
-
+      <!-- Orderformulär modal -->
       <order-modal></order-modal>
 
       <!-- Orderbekräftelse modal-->
-      <div class="modal fade" id="orderConfirmationModal" tabindex="-1">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Orderbekräftelse</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">
-              <div id="orderConfirmationMessage">
-                Här visas en bekräftelse på att ordern har lagts, eller ett
-                felmeddelande om något gick fel.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <checkout-order-modal></checkout-order-modal>
     </div>
   </body>
 </html>

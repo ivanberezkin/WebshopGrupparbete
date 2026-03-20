@@ -1,8 +1,6 @@
 class OrderModal extends HTMLElement {
     connectedCallback(){
         this.innerHTML = `
-        
-    <!-- Orderformulär modal -->
     <div class="modal fade" id="orderFormModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -89,7 +87,6 @@ class OrderModal extends HTMLElement {
                 <div class="form-floating mb-3">
                   <input
                     type="text"
-                    pattern="^\d{3}\s?\d{2}$"
                     class="form-control"
                     id="postalcode"
                     name="PostalCode"
