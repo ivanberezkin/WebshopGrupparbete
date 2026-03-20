@@ -41,7 +41,7 @@ function getAllCategories() {
         const link = document.createElement("a");
         link.href = "#";
         link.className = "dropdown-item";
-        link.textContent = category;
+        link.textContent = category.charAt(0).toUpperCase() + category.slice(1);
         link.addEventListener("click", () => getByCategory(category));
         item.appendChild(link);
         categoryList.appendChild(item);
