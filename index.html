@@ -19,11 +19,12 @@
     ></script>
     <script src="main.js" defer></script>
   </head>
-  <body onload="getFakeStore()">
+  <body>
     <div class="container">
+      <!-- Navigation bar -->
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
-          <a class="navbar-brand" href="#!">Fake store</a>
+          <a class="navbar-brand" href="#!" id="store-btn">Fake store</a>
           <button
             class="navbar-toggler"
             type="button"
@@ -38,11 +39,10 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
               <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#!"
-                  >Home</a
+                <a class="nav-link active" aria-current="page" href="#!" id="home-btn"
+                  >All products</a
                 >
               </li>
-              <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
               <li class="nav-item dropdown">
                 <a
                   class="nav-link dropdown-toggle"
@@ -51,15 +51,15 @@
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
-                  >Shop</a
+                  >Category</a
                 >
-                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                  <li><a class="dropdown-item" href="#!">All Products</a></li>
-                  <li><hr class="dropdown-divider" /></li>
-                  <li><a class="dropdown-item" href="#!">Popular Items</a></li>
-                  <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
-                </ul>
+                <ul
+                  class="dropdown-menu"
+                  aria-labelledby="navbarDropdown"
+                  id="CategoryList"
+                ></ul>
               </li>
+              <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
             </ul>
             <form class="d-flex">
               <button class="btn btn-outline-dark" type="submit">
@@ -74,12 +74,13 @@
         </div>
       </nav>
 
+      <!-- Header -->
       <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
           <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop in style</h1>
+            <h1 class="display-4 fw-bolder">Shop things you dont need</h1>
             <p class="lead fw-normal text-white-50 mb-0">
-              With this shop hompeage template
+              From a store like no other, with products you didnt know you wanted, but now cant live without!
             </p>
           </div>
         </div>
@@ -92,178 +93,174 @@
           ></div>
         </div>
       </section>
+
       <!-- Footer-->
       <footer class="py-5 bg-dark">
         <div class="container">
           <p class="m-0 text-center text-white">
-            Copyright &copy; Your Website 2023
+            Copyright &copy; Grupp 1 Frontend JAVAD25 2026
           </p>
         </div>
       </footer>
     </div>
 
     <!-- Orderformulär modal -->
-      <div class="modal fade" id="orderFormModal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Slutför din beställning</h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
+    <div class="modal fade" id="orderFormModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Slutför din beställning</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="itemToPurchase">
+              Här visas information om den produkt som ska köpas, t.ex. namn,
+              pris. Denna information kan hämtas från servern när modalen
+              öppnas, baserat på det produkt-ID som skickas med i
+              onclick-funktionen för knappen som öppnar modalen.
             </div>
-            <div class="modal-body">
-              <div id="itemToPurchase">
-                Här visas information om den produkt som ska köpas, t.ex. namn,
-                pris. Denna information kan hämtas från servern när modalen
-                öppnas, baserat på det produkt-ID som skickas med i
-                onclick-funktionen för knappen som öppnar modalen.
+            <form id="orderForm" onsubmit="submitOrder(event)" novalidate>
+              <div class="mb-3">
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    minlength="2"
+                    class="form-control"
+                    id="name"
+                    name="Firstname"
+                    placeholder="Förnamn"
+                    required
+                  />
+                  <label for="name">Förnamn</label>
+                  <div class="invalid-feedback">
+                    Vänligen ange ditt förnamn (minst 2 tecken).
+                  </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    minlength="2"
+                    class="form-control"
+                    id="lastname"
+                    name="Lastname"
+                    placeholder="Efternamn"
+                    required
+                  />
+                  <label for="lastname">Efternamn</label>
+                  <div class="invalid-feedback">
+                    Vänligen ange ditt efternamn (minst 2 tecken).
+                  </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    name="Email"
+                    placeholder="Email"
+                    required
+                  />
+                  <label for="email">Email</label>
+                  <div class="invalid-feedback">
+                    Vänligen ange en giltig emailadress.
+                  </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    minlength="2"
+                    maxlength="50"
+                    id="address"
+                    name="Address"
+                    placeholder="Adress"
+                    required
+                  />
+                  <label for="address">Adress</label>
+                  <div class="invalid-feedback">Vänligen ange din adress.</div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    pattern="^\d{3}\s?\d{2}$"
+                    class="form-control"
+                    id="postalcode"
+                    name="PostalCode"
+                    placeholder="Postnummer"
+                    required
+                  />
+                  <label for="postalcode">Postnummer</label>
+                  <div class="invalid-feedback">
+                    Vänligen ange ett giltigt postnummer (5 siffror).
+                  </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    minlength="2"
+                    maxlength="20"
+                    class="form-control"
+                    id="city"
+                    name="City"
+                    placeholder="Ort"
+                    required
+                  />
+                  <label for="city">Ort</label>
+                  <div class="invalid-feedback">
+                    Vänligen ange din ort (minst 2 tecken, max 20 tecken).
+                  </div>
+                </div>
               </div>
-              <form id="orderForm" onsubmit="submitOrder(event)" novalidate>
-                <div class="mb-3">
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      minlength="2"
-                      class="form-control"
-                      id="name"
-                      name="Firstname"
-                      placeholder="Förnamn"
-                      required
-                    />
-                    <label for="name">Förnamn</label>
-                    <div class="invalid-feedback">
-                      Vänligen ange ditt förnamn (minst 2 tecken).
-                    </div>
-                  </div>
 
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      minlength="2"
-                      class="form-control"
-                      id="lastname"
-                      name="Lastname"
-                      placeholder="Efternamn"
-                      required
-                    />
-                    <label for="lastname">Efternamn</label>
-                    <div class="invalid-feedback">
-                      Vänligen ange ditt efternamn (minst 2 tecken).
-                    </div>
-                  </div>
+              <div class="modal-footer">
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  data-bs-dismiss="modal"
+                >
+                  Stäng
+                </button>
+                <button type="submit" class="btn btn-primary">
+                  Lägg beställning
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                  <div class="form-floating mb-3">
-                    <input
-                      type="email"
-                      class="form-control"
-                      id="email"
-                      name="Email"
-                      placeholder="Email"
-                      required
-                    />
-                    <label for="email">Email</label>
-                    <div class="invalid-feedback">
-                      Vänligen ange en giltig emailadress.
-                    </div>
-                  </div>
-
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      class="form-control"
-                      minlength="2"
-                      maxlength="50"
-                      id="address"
-                      name="Address"
-                      placeholder="Adress"
-                      required
-                    />
-                    <label for="address">Adress</label>
-                    <div class="invalid-feedback">
-                      Vänligen ange din adress.
-                    </div>
-                  </div>
-
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      pattern="^\d{3}\s?\d{2}$"
-                      class="form-control"
-                      id="postalcode"
-                      name="PostalCode"
-                      placeholder="Postnummer"
-                      required
-                    />
-                    <label for="postalcode">Postnummer</label>
-                    <div class="invalid-feedback">
-                      Vänligen ange ett giltigt postnummer (5 siffror).
-                    </div>
-                  </div>
-
-                  <div class="form-floating mb-3">
-                    <input
-                      type="text"
-                      minlength="2"
-                      maxlength="20"
-                      class="form-control"
-                      id="city"
-                      name="City"
-                      placeholder="Ort"
-                      required
-                    />
-                    <label for="city">Ort</label>
-                    <div class="invalid-feedback">
-                      Vänligen ange din ort (minst 2 tecken, max 20 tecken).
-                    </div>
-                  </div>
-                </div>
-
-                <div class="modal-footer">
-                  <button
-                    type="button"
-                    class="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Stäng
-                  </button>
-                  <button type="submit" class="btn btn-primary">
-                    Lägg beställning
-                  </button>
-                </div>
-              </form>
+    <!-- Orderbekräftelse modal-->
+    <div class="modal fade" id="orderConfirmationModal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Orderbekräftelse</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div id="orderConfirmationMessage">
+              Här visas en bekräftelse på att ordern har lagts, eller ett
+              felmeddelande om något gick fel.
             </div>
           </div>
         </div>
       </div>
-      <!-- Orderbekräftelse modal-->
-        <div
-          class="modal fade"
-          id="orderConfirmationModal"
-          tabindex="-1"
-          >
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title">Orderbekräftelse</h5>
-                <button
-                  type="button"
-                  class="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div class="modal-body">
-                <div id="orderConfirmationMessage">
-                  Här visas en bekräftelse på att ordern har lagts, eller ett
-                  felmeddelande om något gick fel.
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+    </div>
   </body>
 </html>

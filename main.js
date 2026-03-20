@@ -27,6 +27,55 @@ function getFakeStore() {
     });
 }
 
+function getAllCategories() {
+  fetch("https://fakestoreapi.com/products/categories")
+    .then((response) => response.json())
+    .then((categories) => {
+      const categoryList = document.getElementById("CategoryList");
+      categoryList.innerHTML = "";
+      categories.forEach((category) => {
+        const item = document.createElement("li");
+        const link = document.createElement("a");
+        link.href = "#";
+        link.className = "dropdown-item";
+        link.textContent = category;
+        link.addEventListener("click", () => getByCategory(category));
+        item.appendChild(link);
+        categoryList.appendChild(item);
+      });
+    });
+}
+
+function getByCategory(category) {
+  fetch(`https://fakestoreapi.com/products/category/${category}`)
+    .then((response) => response.json())
+    .then((data) => {
+      document.getElementById("addElementsHere").innerHTML = "";
+      data.forEach((element) => {
+        document.getElementById("addElementsHere").innerHTML += ` 
+          <div class="col mb-5">
+            <div class="card h-100">
+              <img class="card-img-top" src="${element.image}" alt="${element.title}" />
+              <div class="card-body p-4">
+                <div class="text-center">
+                  <h5 class="fw-bolder">${element.title}</h5>
+                  <p class="mb-2 fw-semibold text-primary">${element.price} USD</p>
+                  <p class="mb-0 text-muted small">
+                    ${element.description}
+                  </p>
+                </div>
+              </div>
+              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                <div class="text-center"><button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#orderFormModal" onclick="fetchProductData(${element.id})">Buy Now</button></div>
+              </div>
+            </div>
+          </div>
+        `;
+      });
+    });
+}
+
+
 // Nedan är all for modal-relaterad kod, som är fristående från resten av sidan, och endast används i modalen som öppnas
 
 // vårat orderformulär i modalen
@@ -134,3 +183,32 @@ function submitOrder(e) {
     }, 3000);
   }
 }
+
+function goHome() {
+  document.getElementById("addElementsHere").innerHTML = "";
+  getFakeStore();
+}
+
+function init() {
+  getFakeStore();
+  getAllCategories();
+
+  const homeBtn = document.getElementById("home-btn");
+  if (homeBtn) {
+    homeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      goHome();
+    });
+  }
+
+  const storeBtn = document.getElementById("store-btn");
+  if (storeBtn) {
+    storeBtn.addEventListener("click", (e) => {
+      e.preventDefault();
+      goHome();
+    });
+  }
+}
+
+
+document.addEventListener("DOMContentLoaded", init);
