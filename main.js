@@ -1,3 +1,6 @@
+let orderModal;
+let fields = [];
+
 function getFakeStore() {
   fetch("https://fakestoreapi.com/products")
     .then((response) => response.json())
@@ -78,11 +81,16 @@ function getByCategory(category) {
 
 // Nedan är all for modal-relaterad kod, som är fristående från resten av sidan, och endast används i modalen som öppnas
 
+
+//Väntar tills order-modal är skapat innan den försöker göra functionerna nedan.
+customElements.whenDefined("order-modal").then(() => {
+  
+orderModal = document.querySelector("order-modal");
 // vårat orderformulär i modalen
-const orderForm = document.getElementById("orderForm");
+const orderForm = orderModal.querySelector("#orderForm");
 
 // alla fält i orderformuläret som vi vill validera
-const fields = orderForm.querySelectorAll(".form-control");
+const fields = orderModal.querySelectorAll(".form-control");
 
 // validera enskilt fält
 function validateField(field) {
@@ -100,6 +108,8 @@ fields.forEach((field) => {
   field.addEventListener("blur", () => validateField(field));
 });
 
+});
+
 function manuallyValidateForm() {
   let formIsValid = true;
   fields.forEach((field) => {
@@ -114,6 +124,38 @@ function manuallyValidateForm() {
   });
   return formIsValid;
 }
+
+function submitOrder(e) {
+  e.preventDefault();
+  const modalForm = orderModal.querySelector("#orderFormModal");
+  const orderFormModal = bootstrap.Modal.getInstance(modalForm);
+
+  // validera hela formuläret manuellt, och om det är giltigt, visa bekräftelsemodalen med en bekräftelsemeddelande som innehåller kundens email. Stäng sedan bekräftelsemodalen efter 3 sekunder.
+  if (manuallyValidateForm()) {
+    console.log("Successfully submitted order data to server");
+    orderFormModal.hide();
+
+    const checkoutOrderModal = document.getElementById("orderConfirmationModal")
+    const orderConfirmationModal = bootstrap.Modal.getOrCreateInstance(checkoutOrderModal);
+    const orderConfirmationMessage = document.getElementById(
+    "orderConfirmationMessage",
+  );
+  const email = document.querySelector('input[type="email"]').value;
+    orderConfirmationMessage.innerHTML = `
+  <div class="text-center py-3">
+    <h4 class="mb-3">Tack för din beställning!</h4>
+    <p class="mb-2">Vi har tagit emot din order och börjat behandla den.</p>
+    <p class="mb-0 text-muted">En orderbekräftelse har skickats till <strong>${email}</strong>.</p>
+  </div>
+`;
+    orderConfirmationModal.show();
+    setTimeout(() => {
+      orderConfirmationModal.hide();
+    }, 3000);
+  }
+}
+
+
 
 function fetchProductData(productId) {
   // elementet där vi visar information om produkten som ska köpas
@@ -153,36 +195,7 @@ function fetchProductData(productId) {
     });
 }
 
-function submitOrder(e) {
-  e.preventDefault();
-  const orderFormModal = bootstrap.Modal.getInstance(
-    document.getElementById("orderFormModal"),
-  );
-  const orderConfirmationModal = bootstrap.Modal.getOrCreateInstance(
-    document.getElementById("orderConfirmationModal"),
-  );
-  const orderConfirmationMessage = document.getElementById(
-    "orderConfirmationMessage",
-  );
-  const email = document.querySelector('input[type="email"]').value;
 
-  // validera hela formuläret manuellt, och om det är giltigt, visa bekräftelsemodalen med en bekräftelsemeddelande som innehåller kundens email. Stäng sedan bekräftelsemodalen efter 3 sekunder.
-  if (manuallyValidateForm()) {
-    console.log("Successfully submitted order data to server");
-    orderFormModal.hide();
-    orderConfirmationMessage.innerHTML = `
-  <div class="text-center py-3">
-    <h4 class="mb-3">Tack för din beställning!</h4>
-    <p class="mb-2">Vi har tagit emot din order och börjat behandla den.</p>
-    <p class="mb-0 text-muted">En orderbekräftelse har skickats till <strong>${email}</strong>.</p>
-  </div>
-`;
-    orderConfirmationModal.show();
-    setTimeout(() => {
-      orderConfirmationModal.hide();
-    }, 3000);
-  }
-}
 
 function goHome() {
   document.getElementById("addElementsHere").innerHTML = "";
