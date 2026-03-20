@@ -21,6 +21,7 @@
     <script src="Navbar.js" defer></script>
     <script src="main-header.js" defer></script>
     <script src="OrderModal.js" defer></script>
+    <script src="main-footer.js" defer></script>
     <script src="main.js" defer></script>
   </head>
   <body>
@@ -32,34 +33,28 @@
       <main-header></main-header>
 
       <!-- Footer-->
-      <footer class="py-5 bg-dark">
-        <div class="container">
-          <p class="m-0 text-center text-white">
-            Copyright &copy; Grupp 1 Frontend JAVAD25 2026
-          </p>
-        </div>
-      </footer>
-    </div>
+      <main-footer></main-footer>
 
-    <order-modal></order-modal>
+      <order-modal></order-modal>
 
-    <!-- Orderbekräftelse modal-->
-    <div class="modal fade" id="orderConfirmationModal" tabindex="-1">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Orderbekräftelse</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div id="orderConfirmationMessage">
-              Här visas en bekräftelse på att ordern har lagts, eller ett
-              felmeddelande om något gick fel.
+      <!-- Orderbekräftelse modal-->
+      <div class="modal fade" id="orderConfirmationModal" tabindex="-1">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Orderbekräftelse</h5>
+              <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="modal"
+                aria-label="Close"
+              ></button>
+            </div>
+            <div class="modal-body">
+              <div id="orderConfirmationMessage">
+                Här visas en bekräftelse på att ordern har lagts, eller ett
+                felmeddelande om något gick fel.
+              </div>
             </div>
           </div>
         </div>
