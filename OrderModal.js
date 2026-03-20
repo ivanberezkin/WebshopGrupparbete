@@ -26,6 +26,7 @@ class OrderModal extends HTMLElement {
                   <input
                     type="text"
                     minlength="2"
+                    maxlength="50"
                     class="form-control"
                     id="name"
                     name="Firstname"
@@ -34,7 +35,7 @@ class OrderModal extends HTMLElement {
                   />
                   <label for="name">Förnamn</label>
                   <div class="invalid-feedback">
-                    Vänligen ange ditt förnamn (minst 2 tecken).
+                    Vänligen ange ditt förnamn (minst 2 tecken, max 50 tecken).
                   </div>
                 </div>
 
@@ -42,6 +43,7 @@ class OrderModal extends HTMLElement {
                   <input
                     type="text"
                     minlength="2"
+                    maxlength="50"
                     class="form-control"
                     id="lastname"
                     name="Lastname"
@@ -50,7 +52,7 @@ class OrderModal extends HTMLElement {
                   />
                   <label for="lastname">Efternamn</label>
                   <div class="invalid-feedback">
-                    Vänligen ange ditt efternamn (minst 2 tecken).
+                    Vänligen ange ditt efternamn (minst 2 tecken, max 50 tecken).
                   </div>
                 </div>
 

@@ -162,7 +162,7 @@ function fetchProductData(productId) {
   const itemToPurchaseField = document.getElementById("itemToPurchase");
   // sätt initialt värde att tjänsten tänker.
   itemToPurchaseField.innerHTML =
-    "</div><div class='alert alert-warning' role='alert'>Thinking...</div>";
+    "<div class='alert alert-warning' role='alert'>Thinking...</div>";
 
   // returnera produkt eller felmeddelande
   return fetch(`https://fakestoreapi.com/products/${productId}`)
