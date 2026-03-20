@@ -88,6 +88,9 @@ fields.forEach((field) => {
   field.addEventListener("blur", () => validateField(field));
 });
 
+if(orderForm){
+  orderForm.addEventListener("submit", submitOrder);
+}
 
 });
 
@@ -113,15 +116,25 @@ function submitOrder(e) {
 
   // validera hela formuläret manuellt, och om det är giltigt, visa bekräftelsemodalen med en bekräftelsemeddelande som innehåller kundens email. Stäng sedan bekräftelsemodalen efter 3 sekunder.
   if (manuallyValidateForm()) {
+    const email = orderModal.querySelector('input[type="email"]').value;
     console.log("Successfully submitted order data to server");
     orderFormModal.hide();
+    //Tar bort text från form
+    if(orderForm){
+      orderForm.reset();
+    }
+    //Tar bort highlight på korrekt/inkorrekt
+    fields.forEach(field => {
+        field.classList.remove("is-valid", "is-invalid");
+    });
+
 
     const checkoutOrderModal = document.getElementById("orderConfirmationModal")
     const orderConfirmationModal = bootstrap.Modal.getOrCreateInstance(checkoutOrderModal);
     const orderConfirmationMessage = document.getElementById(
     "orderConfirmationMessage",
   );
-  const email = document.querySelector('input[type="email"]').value;
+  
     orderConfirmationMessage.innerHTML = `
   <div class="text-center py-3">
     <h4 class="mb-3">Tack för din beställning!</h4>
@@ -208,11 +221,12 @@ function init() {
 document.addEventListener("DOMContentLoaded", init);
 
 document.addEventListener("click", (e) => {
- if (e.target.matches(".btn-primary")){
+ if (e.target.matches(".button-buy")){
     const id = e.target.dataset.id;
     fetchProductData(id);
 
     const modal = new bootstrap.Modal(document.getElementById("orderFormModal"));
+
     modal.show();
   }
 });

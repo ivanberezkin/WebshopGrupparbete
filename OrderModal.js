@@ -20,7 +20,7 @@ class OrderModal extends HTMLElement {
               öppnas, baserat på det produkt-ID som skickas med i
               onclick-funktionen för knappen som öppnar modalen.
             </div>
-            <form id="orderForm" onsubmit="submitOrder(event)" novalidate>
+            <form id="orderForm" novalidate>
               <div class="mb-3">
                 <div class="form-floating mb-3">
                   <input

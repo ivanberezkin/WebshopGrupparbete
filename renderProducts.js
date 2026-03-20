@@ -25,7 +25,7 @@ export function renderProducts(products) {
             </p>
 
             <button
-              class="btn btn-primary"
+              class="btn btn-primary button-buy"
               data-id="${item.id}"
             >
               Buy Now
