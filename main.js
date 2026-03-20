@@ -1,32 +1,23 @@
+import { renderProducts } from "./renderProducts.js";
+
 let orderModal;
 let fields = [];
 
 function getFakeStore() {
   fetch("https://fakestoreapi.com/products")
-    .then((response) => response.json())
-    .then((data) => {
-      data.forEach((element) => {
-        document.getElementById("addElementsHere").innerHTML += `
-                    <div class="col mb-5">
-                        <div class="card h-100">
-                            <!-- Product image-->
-                            <img class="card-img-top" src="${element.image}" alt="${element.title}" />
-                            <!-- Product details-->
-                            <div class="card-body p-4">
-                                <div class="text-center">
-                                    <!-- Product name-->
-                                    <h5 class="fw-bolder">${element.title}</h5>
-                                    <!-- Product price-->
-                                    $${element.price.toFixed(2)}
-                                </div>
-                            </div>
-                            <!-- Product actions-->
-                            <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#orderFormModal" onclick="fetchProductData(${element.id})">Buy Now</button></div>
-                            </div>
-                        </div>
-                     </div>`;
-      });
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Fel vid hämtning av produkter");
+      }
+      return res.json();
+    })
+    .then((data) => renderProducts(data))
+    .catch(() => {
+      document.getElementById("addElementsHere").innerHTML = `
+        <div class="alert alert-danger" role="alert">
+          Kunde inte hämta produkter.
+        </div>
+      `;
     });
 }
 
@@ -50,31 +41,20 @@ function getAllCategories() {
 }
 
 function getByCategory(category) {
-  fetch(`https://fakestoreapi.com/products/category/${category}`)
-    .then((response) => response.json())
-    .then((data) => {
-      document.getElementById("addElementsHere").innerHTML = "";
-      data.forEach((element) => {
-        document.getElementById("addElementsHere").innerHTML += ` 
-          <div class="col mb-5">
-            <div class="card h-100">
-              <img class="card-img-top" src="${element.image}" alt="${element.title}" />
-              <div class="card-body p-4">
-                <div class="text-center">
-                  <h5 class="fw-bolder">${element.title}</h5>
-                  <p class="mb-2 fw-semibold text-primary">${element.price} USD</p>
-                  <p class="mb-0 text-muted small">
-                    ${element.description}
-                  </p>
-                </div>
-              </div>
-              <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center"><button class="btn btn-outline-dark mt-auto" data-bs-toggle="modal" data-bs-target="#orderFormModal" onclick="fetchProductData(${element.id})">Buy Now</button></div>
-              </div>
-            </div>
-          </div>
-        `;
-      });
+  fetch(`https://fakestoreapi.com/products/category/${encodeURIComponent(category)}`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error("Fel vid hämtning av kategori");
+      }
+      return res.json();
+    })
+    .then((data) => renderProducts(data))
+    .catch(() => {
+      document.getElementById("addElementsHere").innerHTML = `
+        <div class="alert alert-danger" role="alert">
+          Kunde inte hämta produkter för vald kategori.
+        </div>
+      `;
     });
 }
 
@@ -90,7 +70,7 @@ orderModal = document.querySelector("order-modal");
 const orderForm = orderModal.querySelector("#orderForm");
 
 // alla fält i orderformuläret som vi vill validera
-const fields = orderModal.querySelectorAll(".form-control");
+fields = orderModal.querySelectorAll(".form-control");
 
 // validera enskilt fält
 function validateField(field) {
@@ -107,6 +87,7 @@ function validateField(field) {
 fields.forEach((field) => {
   field.addEventListener("blur", () => validateField(field));
 });
+
 
 });
 
@@ -225,3 +206,13 @@ function init() {
 
 
 document.addEventListener("DOMContentLoaded", init);
+
+document.addEventListener("click", (e) => {
+ if (e.target.matches(".btn-primary")){
+    const id = e.target.dataset.id;
+    fetchProductData(id);
+
+    const modal = new bootstrap.Modal(document.getElementById("orderFormModal"));
+    modal.show();
+  }
+});

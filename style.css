@@ -1,0 +1,39 @@
+.shop-card {
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  width: 100%;
+}
+
+.shop-card__image {
+  height: 160px;
+  width: 100%;
+  object-fit: contain;
+  margin-bottom: 12px;
+}
+
+.shop-card__content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.shop-card__title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.shop-card__text {
+  font-size: 0.75rem;
+  line-height: 1.2;
+  height: 150px;
+  overflow-y: auto;
+}
+
+.shop-card__price {
+  margin-bottom: 8px;
+  font-size: 1rem;
+  font-weight: 700;
+}
