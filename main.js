@@ -78,11 +78,12 @@ function getByCategory(category) {
 
 // Nedan är all for modal-relaterad kod, som är fristående från resten av sidan, och endast används i modalen som öppnas
 
+const modal = document.querySelector("order-modal");
 // vårat orderformulär i modalen
-const orderForm = document.getElementById("orderForm");
+const orderForm = modal.querySelector("#orderForm");
 
 // alla fält i orderformuläret som vi vill validera
-const fields = orderForm.querySelectorAll(".form-control");
+const fields = modal.querySelectorAll(".form-control");
 
 // validera enskilt fält
 function validateField(field) {

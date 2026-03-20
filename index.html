@@ -11,88 +11,25 @@
       integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB"
       crossorigin="anonymous"
     />
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI"
       crossorigin="anonymous"
       defer
     ></script>
+    <script src="Navbar.js" defer></script>
+    <script src="main-header.js" defer></script>
+    <script src="OrderModal.js" defer></script>
     <script src="main.js" defer></script>
   </head>
   <body>
     <div class="container">
       <!-- Navigation bar -->
-      <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <div class="container px-4 px-lg-5">
-          <a class="navbar-brand" href="#!" id="store-btn">Fake store</a>
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
-              <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="#!" id="home-btn"
-                  >All products</a
-                >
-              </li>
-              <li class="nav-item dropdown">
-                <a
-                  class="nav-link dropdown-toggle"
-                  id="navbarDropdown"
-                  href="#"
-                  role="button"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="false"
-                  >Category</a
-                >
-                <ul
-                  class="dropdown-menu"
-                  aria-labelledby="navbarDropdown"
-                  id="CategoryList"
-                ></ul>
-              </li>
-              <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
-            </ul>
-            <form class="d-flex">
-              <button class="btn btn-outline-dark" type="submit">
-                <i class="bi-cart-fill me-1"></i>
-                Cart
-                <span class="badge bg-dark text-white ms-1 rounded-pill"
-                  >0</span
-                >
-              </button>
-            </form>
-          </div>
-        </div>
-      </nav>
+      <main-navbar> </main-navbar>
 
       <!-- Header -->
-      <header class="bg-dark py-5">
-        <div class="container px-4 px-lg-5 my-5">
-          <div class="text-center text-white">
-            <h1 class="display-4 fw-bolder">Shop things you dont need</h1>
-            <p class="lead fw-normal text-white-50 mb-0">
-              From a store like no other, with products you didnt know you wanted, but now cant live without!
-            </p>
-          </div>
-        </div>
-      </header>
-      <section class="py-5">
-        <div class="container px-4 px-lg-5 mt-5">
-          <div
-            class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
-            id="addElementsHere"
-          ></div>
-        </div>
-      </section>
+      <main-header></main-header>
 
       <!-- Footer-->
       <footer class="py-5 bg-dark">
@@ -104,141 +41,7 @@
       </footer>
     </div>
 
-    <!-- Orderformulär modal -->
-    <div class="modal fade" id="orderFormModal" tabindex="-1">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">Slutför din beställning</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body">
-            <div id="itemToPurchase">
-              Här visas information om den produkt som ska köpas, t.ex. namn,
-              pris. Denna information kan hämtas från servern när modalen
-              öppnas, baserat på det produkt-ID som skickas med i
-              onclick-funktionen för knappen som öppnar modalen.
-            </div>
-            <form id="orderForm" onsubmit="submitOrder(event)" novalidate>
-              <div class="mb-3">
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    minlength="2"
-                    class="form-control"
-                    id="name"
-                    name="Firstname"
-                    placeholder="Förnamn"
-                    required
-                  />
-                  <label for="name">Förnamn</label>
-                  <div class="invalid-feedback">
-                    Vänligen ange ditt förnamn (minst 2 tecken).
-                  </div>
-                </div>
-
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    minlength="2"
-                    class="form-control"
-                    id="lastname"
-                    name="Lastname"
-                    placeholder="Efternamn"
-                    required
-                  />
-                  <label for="lastname">Efternamn</label>
-                  <div class="invalid-feedback">
-                    Vänligen ange ditt efternamn (minst 2 tecken).
-                  </div>
-                </div>
-
-                <div class="form-floating mb-3">
-                  <input
-                    type="email"
-                    class="form-control"
-                    id="email"
-                    name="Email"
-                    placeholder="Email"
-                    required
-                  />
-                  <label for="email">Email</label>
-                  <div class="invalid-feedback">
-                    Vänligen ange en giltig emailadress.
-                  </div>
-                </div>
-
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    class="form-control"
-                    minlength="2"
-                    maxlength="50"
-                    id="address"
-                    name="Address"
-                    placeholder="Adress"
-                    required
-                  />
-                  <label for="address">Adress</label>
-                  <div class="invalid-feedback">Vänligen ange din adress.</div>
-                </div>
-
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    pattern="^\d{3}\s?\d{2}$"
-                    class="form-control"
-                    id="postalcode"
-                    name="PostalCode"
-                    placeholder="Postnummer"
-                    required
-                  />
-                  <label for="postalcode">Postnummer</label>
-                  <div class="invalid-feedback">
-                    Vänligen ange ett giltigt postnummer (5 siffror).
-                  </div>
-                </div>
-
-                <div class="form-floating mb-3">
-                  <input
-                    type="text"
-                    minlength="2"
-                    maxlength="20"
-                    class="form-control"
-                    id="city"
-                    name="City"
-                    placeholder="Ort"
-                    required
-                  />
-                  <label for="city">Ort</label>
-                  <div class="invalid-feedback">
-                    Vänligen ange din ort (minst 2 tecken, max 20 tecken).
-                  </div>
-                </div>
-              </div>
-
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Stäng
-                </button>
-                <button type="submit" class="btn btn-primary">
-                  Lägg beställning
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <order-modal></order-modal>
 
     <!-- Orderbekräftelse modal-->
     <div class="modal fade" id="orderConfirmationModal" tabindex="-1">
