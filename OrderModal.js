@@ -58,18 +58,18 @@ class OrderModal extends HTMLElement {
 
                 <div class="form-floating mb-3">
                   <input
-                    type="text"
-                    pattern="(\\+46\\s?|0)[7-9]\\d{1,2}\\s?(\\d{3,4}\\s?\\d{2,3}|\\d{2,3}\\s?\\d{3,4})"
+                    type="tel"
+                    pattern="^(\\+46[\\s]?)?\\(?0?\\d{1,2}\\)?[\\s\\-]*\\d{2,3}[\\s\\-]*\\d{2}[\\s\\-]*\\d{2}$"
                     maxlength="20"
                     class="form-control"
                     id="phone"
                     name="Phone"
-                    placeholder="Phone"
+                    placeholder="Telefonnummer"
                     required
                   />
-                  <label for="phone">Phone no</label>
+                  <label for="phone">Telefonnummer</label>
                   <div class="invalid-feedback">
-                    Please enter a valid phone number.
+                    Vänligen ange ett giltigt telefonnummer.
                   </div>
                 </div>
 
