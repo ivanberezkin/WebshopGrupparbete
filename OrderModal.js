@@ -1,6 +1,6 @@
 class OrderModal extends HTMLElement {
-    connectedCallback(){
-        this.innerHTML = `
+  connectedCallback() {
+    this.innerHTML = `
     <div class="modal fade" id="orderFormModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -59,7 +59,7 @@ class OrderModal extends HTMLElement {
                 <div class="form-floating mb-3">
                   <input
                     type="text"
-                    pattern="(\+46\s?|0)[7-9]\d{1,2}\s?(\d{3,4}\s?\d{2,3}|\d{2,3}\s?\d{3,4})"
+                    pattern="(\\+46\\s?|0)[7-9]\\d{1,2}\\s?(\\d{3,4}\\s?\\d{2,3}|\\d{2,3}\\s?\\d{3,4})"
                     maxlength="20"
                     class="form-control"
                     id="phone"
@@ -154,7 +154,7 @@ class OrderModal extends HTMLElement {
         </div>
       </div>
     </div>
-        `
-    }
+        `;
+  }
 }
-customElements.define('order-modal', OrderModal);
+customElements.define("order-modal", OrderModal);
