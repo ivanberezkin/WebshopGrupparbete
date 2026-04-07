@@ -58,6 +58,23 @@ class OrderModal extends HTMLElement {
 
                 <div class="form-floating mb-3">
                   <input
+                    type="tel"
+                    pattern="^(\\+46[\\s]?)?\\(?0?\\d{1,2}\\)?[\\s\\-]*\\d{2,3}[\\s\\-]*\\d{2}[\\s\\-]*\\d{2}$"
+                    maxlength="20"
+                    class="form-control"
+                    id="phone"
+                    name="Phone"
+                    placeholder="Telefonnummer"
+                    required
+                  />
+                  <label for="phone">Telefonnummer</label>
+                  <div class="invalid-feedback">
+                    Vänligen ange ett giltigt telefonnummer.
+                  </div>
+                </div>
+
+                <div class="form-floating mb-3">
+                  <input
                     type="email"
                     class="form-control"
                     id="email"
