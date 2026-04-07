@@ -1,6 +1,6 @@
 class OrderModal extends HTMLElement {
-    connectedCallback(){
-        this.innerHTML = `
+  connectedCallback() {
+    this.innerHTML = `
     <div class="modal fade" id="orderFormModal" tabindex="-1">
       <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -137,7 +137,7 @@ class OrderModal extends HTMLElement {
         </div>
       </div>
     </div>
-        `
-    }
+        `;
+  }
 }
-customElements.define('order-modal', OrderModal);
+customElements.define("order-modal", OrderModal);
